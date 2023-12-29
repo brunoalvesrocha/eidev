@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formatador JSON</title>
+    <style>
+        textarea {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            overflow-y: hidden; /* Impede a barra de rolagem */
+            resize: none; /* Desabilita redimensionamento manual */
+        }
+        button {
+            display: block;
+            width: 100px;
+            padding: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Formatador JSON</h1>
+
+    <textarea id="inputText" placeholder="Cole aqui o seu JSON" oninput="autoGrow(this)"></textarea>
+    <button onclick="formatJson()">Formatar</button>
+    <textarea id="outputText" placeholder="Resultado formatado" readonly></textarea>
+
+    <script>
+        function formatJson() {
+            try {
+                var inputText = document.getElementById('inputText').value;
+                var formattedText = JSON.stringify(JSON.parse(inputText), null, 4);
+                var outputTextArea = document.getElementById('outputText');
+                outputTextArea.value = formattedText;
+                autoGrow(outputTextArea);
+            } catch(e) {
+                var outputTextArea = document.getElementById('outputText');
+                outputTextArea.value = "Erro na formatação: " + e.message;
+                autoGrow(outputTextArea);
+            }
+        }
+
+        function autoGrow(element) {
+            element.style.height = "5px";
+            element.style.height = (element.scrollHeight)+"px";
+        }
+    </script>
+
+</body>
+</html>

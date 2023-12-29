@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON Formatter</title>
+    <style>
+        .container {
+            max-width: 800px; /* Largura máxima para telas grandes */
+            margin: auto;
+            padding: 10px;
+        }
+
+        textarea, button {
+            width: 100%; /* Ocupa toda a largura do contêiner */
+            box-sizing: border-box; /* Inclui padding e borda no cálculo da largura */
+        }
+
+        textarea {
+            min-height: 100px;
+            padding: 10px;
+            margin-bottom: 10px;
+            font-family: monospace;
+            overflow-y: hidden;
+            resize: none;
+        }
+
+        button {
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 600px) { /* Para telas menores, como smartphones */
+            .container {
+                max-width: 100%; /* Aumenta a largura máxima */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>JSON Formatter</h1>
+
+        <textarea id="inputText" placeholder="Cole aqui o seu JSON" oninput="autoGrow(this)"></textarea>
+        <button onclick="formatJson()">Formatar</button>
+        <textarea id="outputText" placeholder="Resultado formatado" readonly></textarea>
+    </div>
+
+    <script>
+        function formatJson() {
+            try {
+                var inputText = document.getElementById('inputText').value;
+                var formattedText = JSON.stringify(JSON.parse(inputText), null, 4);
+                var outputTextArea = document.getElementById('outputText');
+                outputTextArea.value = formattedText;
+                autoGrow(outputTextArea);
+            } catch(e) {
+                var outputTextArea = document.getElementById('outputText');
+                outputTextArea.value = "Erro na formatação: " + e.message;
+                autoGrow(outputTextArea);
+            }
+        }
+
+        function autoGrow(element) {
+            element.style.height = "5px";
+            element.style.height = (element.scrollHeight) + "px";
+        }
+    </script>
+
+</body>
+</html>

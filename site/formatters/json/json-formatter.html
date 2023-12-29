@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON Formatter</title>
+    <style>
+        textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+        }
+        button {
+            display: block;
+            width: 100px;
+            padding: 5px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>JSON Formatter</h1>
+
+    <textarea id="inputText" placeholder="Cole aqui o seu JSON"></textarea>
+    <button onclick="formatJson()">Formatar</button>
+    <textarea id="outputText" placeholder="Resultado formatado" readonly></textarea>
+
+    <script>
+        function formatJson() {
+            try {
+                var inputText = document.getElementById('inputText').value;
+                var formattedText = JSON.stringify(JSON.parse(inputText), null, 4);
+                document.getElementById('outputText').value = formattedText;
+            } catch(e) {
+                document.getElementById('outputText').value = "Erro na formatação: " + e.message;
+            }
+        }
+    </script>
+
+</body>
+</html>
